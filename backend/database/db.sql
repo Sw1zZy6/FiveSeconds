@@ -14,24 +14,26 @@
 
 -- CREATE TABLE IF NOT EXISTS quizzes (
 --     quiz_id serial PRIMARY KEY,
---     admin_id int references admins(admin_id) NOT NULL,
+--     admin_username text NOT NULL,
 --     question text NOT NULL,
 --     answer text NOT NULL,
 --     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
---     FOREIGN KEY (admin_id) REFERENCES admins(admin_id) ON DELETE CASCADE
+--     FOREIGN KEY (admin_username) REFERENCES admins(username) ON DELETE CASCADE
 -- );
 
--- CREATE TABLE IF NOT EXISTS quiz_results (
---     result_id serial PRIMARY KEY,
---     user_id int NOT NULL,
---     quiz_id int NOT NULL,
+-- CREATE TABLE IF NOT EXISTS scores (
+--     score_id serial PRIMARY KEY,
+--     user_username text NOT NULL,
 --     score int NOT NULL,
 --     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
---     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
---     FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id) ON DELETE CASCADE
+--     FOREIGN KEY (user_username) REFERENCES users(username) ON DELETE CASCADE
 -- );
 
 -- INSERT INTO users (username, password) VALUES ('gnar', 'gnar123'), ('dude', 'dude1');
 -- INSERT INTO admins (username) VALUES ('gnar');
--- INSERT INTO quizzes (admin_id, question, answer) VALUES (1, 'What is 2 + 2?', '4');
--- INSERT INTO quiz_results (user_id, quiz_id, score) VALUES (1, 1, 100), (2, 1, 80);
+-- INSERT INTO quizzes (admin_username, question, answer) VALUES ('gnar', 'What is 5 + 2?', '7');
+-- INSERT INTO quiz_results (user_username, quiz_id, score) VALUES ('gnar', 1, 100);
+
+-- ALTER TABLE quizzes
+-- ADD CONSTRAINT unique_question UNIQUE (question);
+

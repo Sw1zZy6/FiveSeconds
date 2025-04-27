@@ -1,22 +1,23 @@
-import express from 'express';
-import cors from 'cors';
-import { client } from './pg.js';
+import express from "express";
+import cors from "cors";
+import usersRouter from "../routes/users.js";
+import adminsRouter from "../routes/admins.js";
+import quizzesRouter from "../routes/quizzes.js";
+import scoresRouter from "../routes/scores.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 app.use(express.json());
-app.use(cors())
+app.use(cors());
 
-app.get('/api/notes', async (req, res) => {
-  try {
-    const result = await client.query('SELECT * FROM notes');
-    res.json(result.rows);
-  } catch (error) {
-    console.error('Error fetching notes:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
+app.use("/users", usersRouter);
+app.use("/admins", adminsRouter);
+app.use("/quizzes", quizzesRouter);
+app.use("/scores", scoresRouter);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

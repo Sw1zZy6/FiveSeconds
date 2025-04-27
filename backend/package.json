@@ -5,13 +5,15 @@
   "scripts": {
     "dev": "nodemon database/main.js"
   },
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "pg": "^8.15.5"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
