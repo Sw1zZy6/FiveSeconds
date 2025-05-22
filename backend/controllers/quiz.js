@@ -1,10 +1,8 @@
 import prisma from "../prismaClient.js";
 
-// Quiz
-
 export const getQuizzes = async (req, res) => {
   const quizzes = await prisma.quiz.findMany({
-    include: { questions: true }
+    include: { questions: true },
   });
   res.json({ quizzes });
 };
@@ -13,7 +11,7 @@ export const getQuiz = async (req, res) => {
   const quizId = parseInt(req.params.quizId);
   const quiz = await prisma.quiz.findFirst({
     where: { id: quizId },
-    include: { questions: true }
+    include: { questions: true },
   });
 
   if (!quiz) {
@@ -25,11 +23,11 @@ export const getQuiz = async (req, res) => {
 
 export const createQuiz = async (req, res) => {
   const quiz = await prisma.quiz.create({
-    data: req.body
+    data: req.body,
   });
 
-  res.json({ quiz })
-}
+  res.json({ quiz });
+};
 
 export const updateQuiz = async (req, res) => {
   const quizId = parseInt(req.params.quizId);
