@@ -12,7 +12,7 @@ import sanitizeMiddleware from "./middleware/sanitize.js";
 import notFound from "./middleware/notFound.js";
 import { errorHandler } from "./middleware/errors.js";
 import authenticate from "./middleware/auth.js";
-import { removePassword } from "./middleware/removePassword.js";
+import removePasswords from "./middleware/removePasswords.js";
 
 env.config();
 
@@ -26,8 +26,9 @@ app.use(helmet());
 
 app.use("/v1/auth", registerRouter);
 
-app.use(removePassword)
+
 app.use(authenticate);
+app.use(removePasswords);
 
 app.use("/v1/users", userRouter);
 app.use("/v1/quizzes", quizRouter);

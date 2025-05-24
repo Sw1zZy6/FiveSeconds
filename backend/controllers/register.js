@@ -42,13 +42,21 @@ export const login = async (req, res) => {
 };
 
 export const signUp = async (req, res, next) => {
-  const { name, username, email } = req.body;
+  try {
+    const { name, username, email } = req.body;
 
-  const hashedPassword = await bcrypt.hash(req.body.password, 3);
+    const hashedPassword = await bcrypt.hash(req.body.password, 3);
 
-  const user = await prisma.user.create({
-    data: { name, username, email, password: hashedPassword },
-  });
+    const newUser = await prisma.user.create({
+      data: { name, username, email, password: hashedPassword },
+    });
 
-  res.status(201).json({ user });
+    const { password, ...userWithoutPassword } = newUser;
+
+    const user = userWithoutPassword;
+
+    res.status(201).json({ user });
+  } catch (error) {
+    return next(error);
+  }
 };
